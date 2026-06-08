@@ -1,0 +1,164 @@
+/* Todo application styles moved to a separate CSS file.
+   Each rule includes comments explaining the purpose of the properties. */
+
+/* Page-specific wrapper for the todo page content */
+.todo-page {
+  min-height: 65vh;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Header section for the todo app title and description */
+.todo-header {
+  margin-bottom: 1.2rem;
+}
+
+.todo-header h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.4rem;
+  color: var(--foreground);
+}
+
+.todo-header p {
+  color: var(--secondary);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Form container for adding new tasks */
+.todo-form {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0 1.75rem;
+  width: 100%;
+}
+
+.todo-form input {
+  flex: 1;
+  min-width: 220px;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #121212;
+  color: var(--foreground);
+}
+
+.todo-form input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+
+.todo-form input:focus {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  border-color: rgba(255,255,255,0.06);
+}
+
+.todo-form button {
+  background: var(--primary);
+  color: #111;
+  border: none;
+  padding: 0.9rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 6px 18px rgba(11,11,11,0.6);
+}
+
+.todo-form button:hover {
+  transform: translateY(-1px);
+}
+
+/* Card that wraps the todo list area */
+.todo-list-card {
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 14px;
+  padding: 1.25rem;
+  width: 700px;
+}
+
+.todo-list-card h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.todo-list {
+  list-style: none;
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.8rem;
+  padding: 0;
+}
+
+.todo-item {
+  display: flex; /* align item text and buttons */
+  justify-content: space-between; /* separate content and actions */
+  align-items: center; /* vertically center row items */
+  gap: 1rem; /* spacing inside each row */
+  padding: 1rem 1.2rem; /* internal row padding */
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #1b1b1b 0%, #141414 100%);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6) inset;
+}
+
+.todo-item span {
+  color: var(--foreground);
+  flex: 1;
+  word-break: break-word;
+}
+
+.todo-item button {
+  border-radius: 10px;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(255,255,255,0.03);
+  cursor: pointer;
+  background: transparent;
+  color: var(--foreground);
+}
+
+.todo-remove-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.85);
+}
+
+.todo-remove-btn:hover {
+  background: var(--primary);
+  color: #111;
+  border-color: transparent;
+}
+
+.todo-empty {
+  color: var(--secondary); /* muted text for empty state */
+  margin-top: 1rem; /* spacing above empty notice */
+}
+
+/* Responsive layout changes for small screens */
+@media (max-width: 680px) {
+  .todo-form {
+    flex-direction: column; /* stack field and button vertically */
+  }
+
+  .todo-item {
+    flex-direction: column; /* stack row contents on narrow screens */
+    align-items: stretch; /* let child elements fill width */
+  }
+
+  .todo-item button {
+    width: 100%; /* full width buttons on mobile */
+  }
+}
+
+/* center the card visually on wide screens */
+@media (min-width: 900px) {
+  .todo-page .todo-list-card {
+    margin-top: 10px;
+  }
+}
