@@ -4,7 +4,7 @@
  export default function TodoForm({
   task,
   setTask,
-  addTask,
+  handleAddTask
 }) {
 
   return (
@@ -18,7 +18,7 @@
         }
       />
 
-      <button onClick={addTask}>
+      <button onClick={handleAddTask}>
         Add Task
       </button>
     </div>

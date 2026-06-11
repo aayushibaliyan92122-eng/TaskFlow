@@ -1,6 +1,6 @@
 import Link from "next/link";
-import "./globals.css";
-import "./todo-styles.css";
+
+
 
 export const metadata = {
   title: "My Learning App",
@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
         <header>
           <nav>
             <Link href="/">list</Link>
-            <Link href={`/editTodos/${id}`}>edit</Link>
+            
             <Link href="/status">stats</Link>
           </nav>
           <div className="site-branding">

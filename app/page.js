@@ -13,61 +13,82 @@ const page = () => {
   const [editIndex, setEditIndex] =
   useState(null);
 
-  // Add a new todo item when the user clicks the button
-  const addTask = () => {
-    if (task.trim() === "") return;
-    setTodos((current) => [...current, task.trim()]);
-    setTask("");
-  };
+//deleting todo rooute fetchinng
+async function deleteTodo (index){
+fetch("/api/routes", {
+ method: "DELETE",
+ headers: {
+   "Content-Type":
+   "application/json"
+ },
+ body:
+   JSON.stringify({
+     index
+   })
+})
+ getTodos()
+}
 
-  // Remove a todo item by index
-  const removeTask = (index) => {
-    setTodos((current) => current.filter((_, itemIndex) => itemIndex !== index));
-  };
+  // Add a new todo item when the user clicks the button for POST
+  async function handleAddTodo() {
+  const response = await fetch(
+    "/api/routes",
+    {
+      method: "POST",
 
-  //editing todo item
- 
-  
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
 
-
-
-     //get todos from localstorage
-   useEffect(() => {
-
-
-  const savedTodos =
-    localStorage.getItem(
-      "todos"
-    );
-
-  if (savedTodos) {
-    setTodos(
-      JSON.parse(savedTodos)
-    );
-  }
-}, []);
-
-  //adding todos in localstorage
-  useEffect(() => {
-
-    if (todos.length <= 0) {
-      return; 
+      body: JSON.stringify({
+        title: task,
+      }),
     }
-  localStorage.setItem(
-    "todos",
-    JSON.stringify(todos)
-      );
-   }, [todos]);
+  );
 
+  const data =
+    await response.json();
 
+  setTodos([
+  ...todos,
+  task
+])
+
+  console.log(todos)
+}
+
+ async function getTodos() {
+
+    const response =
+      await fetch("/api/routes");
+
+    const data =
+      await response.json();
+
+    console.log(data.todos);
+
+    setTodos(data.todos);
+  }
+
+//GET TOODOS
+useEffect(() => {
+
+  getTodos();
+
+}, []);
+ 
 
   return (
     <section className="page-content todo-page">
   
       <TodoHeader />
-     <TodoForm addTask={addTask} task={task} setTask={setTask} />
-
-     <TodoList todos={todos} removeTask={removeTask}  />
+     <TodoForm handleAddTask={handleAddTodo} task={task} setTask={setTask} />
+      <TodoList
+  todos={todos}
+  deleteTodo = {deleteTodo}
+ 
+/>
 
     </section>
   );
