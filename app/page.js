@@ -10,11 +10,13 @@ const page = () => {
   // State to keep track of the list of todos
   const [todos, setTodos] = useState([]);
   //state for editing todo feature
-  const [editIndex, setEditIndex] =
-  useState(null);
+  const [editId, setEditId] =
+  useState();
+
+
 
 //deleting todo rooute fetchinng
-async function deleteTodo (index){
+async function deleteTodo (id){
 fetch("/api/routes", {
  method: "DELETE",
  headers: {
@@ -23,7 +25,7 @@ fetch("/api/routes", {
  },
  body:
    JSON.stringify({
-     index
+     id
    })
 })
  getTodos()
@@ -50,14 +52,12 @@ fetch("/api/routes", {
   const data =
     await response.json();
 
-  setTodos([
-  ...todos,
-  task
-])
+  await getTodos();
+  setTask("");
 
   console.log(todos)
 }
-
+//get todos
  async function getTodos() {
 
     const response =
@@ -66,7 +66,8 @@ fetch("/api/routes", {
     const data =
       await response.json();
 
-    console.log(data.todos);
+    console.log(data);
+
 
     setTodos(data.todos);
   }
@@ -85,11 +86,11 @@ useEffect(() => {
       <TodoHeader />
      <TodoForm handleAddTask={handleAddTodo} task={task} setTask={setTask} />
       <TodoList
-  todos={todos}
-  deleteTodo = {deleteTodo}
- 
-/>
-
+        todos={todos}
+        deleteTodo = {deleteTodo}
+        
+      />
+  
     </section>
   );
 };

@@ -1,7 +1,13 @@
-let todos = [];
+import prisma 
+from "../../lib/prisma.js";;
+
 
 
 export async function GET() {
+
+  const todos =
+  await prisma.todo.findMany()
+
 
   return Response.json({
     success: true,
@@ -20,7 +26,13 @@ export async function
       message: "Title is required",
     }, { status: 400 });
   }
-   todos.push(data.title);
+  //adding todo in prismadb
+ await prisma.todo.create({
+  data: {
+    title: data.title,
+    completed: false
+  }
+});
   return  Response.json({
     success: true,
     message: "Todo created successfully",  
@@ -30,26 +42,44 @@ export async function
 
 
 
-export async function
-DELETE(request) {
 
-  const data =
-    await request.json();
+  
+export async function DELETE(request) {
+  const data = await request.json();
 
-  console.log(data);
-
-  todos = todos.filter(
-    (_, index) =>
-      index !==
-      data.index
-  );
+  await prisma.todo.delete({
+    where: {
+      id: data.id,
+    },
+  });
 
   return Response.json({
     success: true,
-    message:
-      "Todo deleted successfully",
+    message: "Todo deleted successfully",
   });
+}
+
+export async function PATCH(request) {
+  const data = await request.json()
+
+  await prisma.todo.update({
+  where: {
+    id: Number(data.id)
+  },
+
+  data: {
+    title: data.title
+  }
+})
+
+console.log(data)
+console.log("updated data")
+return Response.json({
+ success: true,
+ message:
+  "Todo updated successfully"
+})
+
 
   
 }
-

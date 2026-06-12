@@ -4,36 +4,39 @@ import Link from "next/link";
 
 export default function TodoList({
   todos,
-  deleteTodo
-  
+  deleteTodo,
 }) {
   return (
     <div className="todo-list-card">
       <h2>Tasks</h2>
 
-      
-        <ul className="todo-list">
-          {todos.map((todo, index) => (
-            <li
-              key={index}
-              className="todo-item"
-            >
-              <span>{todo}</span>
+      <ul className="todo-list">
+        {todos.map((todo) => (
+          <li
+            key={todo.id}
+            className="todo-item"
+          >
+            <span>
+              {todo.title}
+            </span>
 
-              <Link
-                href={`/editTodos/${index}`}
+            <button
+              onClick={() =>
+                deleteTodo(todo.id)
+              }
+            >
+              Delete
+            </button>
+          <Link
+              href={`/editTodo/${todo.id}`}
               >
-                <button>
-                  Edit
-                </button>
-              </Link>
-              <button onClick={() =>
-                                deleteTodo(index) 
-                              } >Delete</button>
-            </li>
-          ))}
-        </ul>
-     
+             <button>
+              Edit
+             </button>
+          </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
