@@ -15,8 +15,9 @@ const page = () => {
 
 
 
-//deleting todo rooute fetchinng
+//deleting todo rooute fetchinng & toggling todo
 async function deleteTodo (id){
+
 fetch("/api/routes", {
  method: "DELETE",
  headers: {
@@ -30,6 +31,9 @@ fetch("/api/routes", {
 })
  getTodos()
 }
+
+//toggling todo
+
 
   // Add a new todo item when the user clicks the button for POST
   async function handleAddTodo() {
@@ -72,6 +76,32 @@ fetch("/api/routes", {
     setTodos(data.todos);
   }
 
+  //toggle todo
+async function
+toggleTodo(todo){
+
+
+ await fetch("/api/routes", {
+ method: "PATCH",
+ headers: {
+   "Content-Type":
+   "application/json"
+ },
+
+
+ body:
+    JSON.stringify({
+      id: todo.id,
+      completed: todo.completed
+    })
+
+})
+getTodos()
+}
+ 
+
+
+  
 //GET TOODOS
 useEffect(() => {
 
@@ -88,6 +118,7 @@ useEffect(() => {
       <TodoList
         todos={todos}
         deleteTodo = {deleteTodo}
+        toggleTodo={toggleTodo}
         
       />
   
@@ -95,4 +126,4 @@ useEffect(() => {
   );
 };
 
-export default page;
+export default page

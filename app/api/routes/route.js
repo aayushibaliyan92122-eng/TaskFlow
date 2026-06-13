@@ -61,7 +61,7 @@ export async function DELETE(request) {
 
 export async function PATCH(request) {
   const data = await request.json()
-
+if(data.title){
   await prisma.todo.update({
   where: {
     id: Number(data.id)
@@ -74,6 +74,27 @@ export async function PATCH(request) {
 
 console.log(data)
 console.log("updated data")
+}
+
+//toggling
+if(data.completed !== undefined){
+  await prisma.todo.update({
+ where: {
+   id:
+     Number(data.id)
+ },
+
+ data: {
+   completed:
+      !data.completed
+ }
+}
+)
+}
+
+
+
+
 return Response.json({
  success: true,
  message:

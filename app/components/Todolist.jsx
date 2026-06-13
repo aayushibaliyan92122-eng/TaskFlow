@@ -5,6 +5,7 @@ import Link from "next/link";
 export default function TodoList({
   todos,
   deleteTodo,
+  toggleTodo
 }) {
   return (
     <div className="todo-list-card">
@@ -27,6 +28,13 @@ export default function TodoList({
             >
               Delete
             </button>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() =>
+             toggleTodo(todo)
+            }
+/>
           <Link
               href={`/editTodo/${todo.id}`}
               >

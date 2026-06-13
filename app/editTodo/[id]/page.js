@@ -62,6 +62,8 @@ router.push("/")
 
 }
 
+
+
 useEffect(()=>{
 async function getTodo() {
   const response =
@@ -79,6 +81,9 @@ async function getTodo() {
  setTodo(selectedTodo.title)
  console.log(selectedTodo)
 }
+
+
+
 
 getTodo()
 },[])
