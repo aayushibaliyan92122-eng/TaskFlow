@@ -33,7 +33,7 @@ export async function
     completed: false
   }
 });
-  return  Response.json({
+  return Response.json({
     success: true,
     message: "Todo created successfully",  
   }, { status: 201 })
