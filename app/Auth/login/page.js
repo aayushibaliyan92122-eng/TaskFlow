@@ -1,8 +1,11 @@
+'use client'
+
+
 import React from "react";
 import { useEffect,useState } from "react";
 
 
-const Login = ()=>{
+const login = ()=>{
 
  const [loginData, setloginData] = useState({password: "" , email: ""})
 
@@ -11,8 +14,35 @@ function loginHandle(event){
     setloginData({...loginData, [event.target.name]: event.target.value})
 }
  
-function loginButton(){
+ async function loginButton(){
+
+  const response= await fetch(
+    "/api/auth/login",
+{
+   method : "POST",
+    headers:{
+        "Content-Type":
+            "application/json"
+
+    },
+    body: JSON.stringify(
+       { loginData}
+    )
+
+    }
+
+    )
+   
     console.log(loginData)
+   const res =await response.json()
+
+   if(res.success===true){
+    console.log(res.message)
+}else{
+    console.log(res.message)
+}
+  
+   
 }
 
 
@@ -42,4 +72,4 @@ onChange={loginHandle}
 }
 
 
-export default Login
+export default login
