@@ -20,11 +20,12 @@ async function getUser(){
   const response = await fetch("/api/auth/me")
 
   const userid = await response.json()
-  console.log(userid.userinfo.userId)
+  
 
-  if(userid === false){
+  if(userid.success === false){
     
     router.push("/auth/login")
+    return 
   }else{
 
   return userid.userinfo
@@ -81,7 +82,7 @@ useEffect(()=>{
 
   console.log(todos)
 }
-//get todos
+
  async function getTodos() {
 
     const response =
@@ -122,12 +123,12 @@ getTodos()
 
 
   
-//GET TOODOS
-useEffect(() => {
+// //GET TOODOS
+// useEffect(() => {
 
-  getTodos();
+//   getTodos();
 
-}, [])
+// }, [])
  
 
     
