@@ -15,7 +15,21 @@ const page = () => {
   useState();
 const router = useRouter()
 
+//finding userlogin or not
+async function getUser(){
+  const response = await fetch("/api/auth/me")
 
+  const userid = await response.json()
+  console.log(userid)
+
+  if(userid.success === false){
+    
+    router.push("/auth/login")
+  }else{
+
+  return userid
+  }
+}
 
    
 //deleting todo rooute fetchinng & toggling todo
@@ -35,21 +49,7 @@ fetch("/api/routes", {
  getTodos()
 }
 
-//finding userlogin or not
-async function getUser(){
-  const response = await fetch("/api/auth/me")
 
-  const data = await response.json()
-  console.log(data)
-
-  if(data.success === false){
-    
-    router.push("/auth/login")
-  }else{
-
-  return data
-  }
-}
 //using useeefect for  this
 useEffect(()=>{
   getUser()

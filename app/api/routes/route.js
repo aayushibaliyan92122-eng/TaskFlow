@@ -5,9 +5,15 @@ from "../../lib/prisma.js";;
 
 
 export async function GET() {
-
+ const userId =await  getCurrentuser()
   const todos =
-  await prisma.todo.findMany()
+  await prisma.todo.findMany(
+    {
+      where:{
+        userId:userId
+      }
+    }
+  )
 
 
   return Response.json({
@@ -63,21 +69,50 @@ export async function
 export async function DELETE(request) {
   const data = await request.json();
 
-  await prisma.todo.delete({
-    where: {
-      id: data.id,
-    },
-  });
+  const userid = await getCurrentuser()
+
+ const todo = await prisma.todo.findUnique({
+  where: {
+    id: Number(data.id)
+  }
+})
+
+if(todo.userId !== userid){
+  return Response.json(
+    {success: false, message:"you are not authenticated to do this operation"},
+    {status: 401}
+  )
+}else{
+  await prisma.todo.delete(
+  { where:{ id : Number(data.id)}}
+  )
 
   return Response.json({
     success: true,
     message: "Todo deleted successfully",
   });
 }
+}
 
 export async function PATCH(request) {
   const data = await request.json()
-if(data.title){
+  const userid = await getCurrentuser()
+
+   const todo = await prisma.todo.findUnique({
+  where: {
+    id: Number(data.id)
+  }
+})
+
+
+if(todo.userId !== userid){
+  return Response.json(
+    {success: false , message: "u are npt authenticated to perform this operation"},
+    {status:401}
+  )
+
+}else{
+  if(data.title){
   await prisma.todo.update({
   where: {
     id: Number(data.id)
@@ -87,6 +122,7 @@ if(data.title){
     title: data.title
   }
 })
+}
 
 console.log(data)
 console.log("updated data")
