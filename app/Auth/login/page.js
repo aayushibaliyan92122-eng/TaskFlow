@@ -3,11 +3,13 @@
 
 import React from "react";
 import { useEffect,useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 const login = ()=>{
 
  const [loginData, setloginData] = useState({password: "" , email: ""})
+ const router = useRouter()
 
 
 function loginHandle(event){
@@ -42,8 +44,10 @@ function loginHandle(event){
     console.log(res.message)
 }
   
-   
+   router.push("/")
 }
+
+
 
 
 return(

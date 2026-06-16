@@ -10,10 +10,12 @@ async function getCurrentuser() {
 
    const verifiedToken =  jwt.verify(token.value , process.env.JWT_SECRET)
 
-  console.log( verifiedToken.userId)
+  
 
 
-
+ const userId = verifiedToken.userId
+ console.log(userId)
     
+return userId
 }
 export default getCurrentuser

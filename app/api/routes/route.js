@@ -1,3 +1,4 @@
+import getCurrentuser from "../../lib/auth.js";
 import prisma 
 from "../../lib/prisma.js";;
 
@@ -26,11 +27,26 @@ export async function
       message: "Title is required",
     }, { status: 400 });
   }
+
+
+  const userId = await getCurrentuser()
+  if(!userId){
+    return Response.json(
+    {success:false ,message:"unauthorised,no user"},
+    {status:401}
+    )
+  }
+
   //adding todo in prismadb
  await prisma.todo.create({
   data: {
     title: data.title,
-    completed: false
+    completed: false,
+    user: {
+      connect: {
+      id: userId
+     }
+   }
   }
 });
   return Response.json({

@@ -2,6 +2,7 @@
  
 import React from "react"
 import { useState , useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 
 
@@ -9,6 +10,7 @@ import { useState , useEffect } from "react"
 const  SignUp=()=>{
 
   const [userData, setuserData] = useState({name: "" , password: "" , email: ""})
+  const router = useRouter()
 
 function handleChange(event) {
   setuserData({
@@ -38,6 +40,9 @@ function handleChange(event) {
     }
   );
 
+
+  
+     router.push("/auth/login")
 }
 
 
@@ -63,7 +68,8 @@ function handleChange(event) {
   }
 // getTodos()
 }
-  
+
+
 
     return(
       <>

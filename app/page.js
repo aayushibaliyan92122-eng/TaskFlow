@@ -3,6 +3,7 @@ import { useState , useEffect } from 'react'
 import TodoList from './components/Todolist';
 import TodoForm from './components/Todoform';
 import TodoHeader from './components/Todoheader';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
   // State to keep track of the current task input
@@ -12,9 +13,11 @@ const page = () => {
   //state for editing todo feature
   const [editId, setEditId] =
   useState();
+const router = useRouter()
 
 
 
+   
 //deleting todo rooute fetchinng & toggling todo
 async function deleteTodo (id){
 
@@ -32,8 +35,25 @@ fetch("/api/routes", {
  getTodos()
 }
 
-//toggling todo
+//finding userlogin or not
+async function getUser(){
+  const response = await fetch("/api/auth/me")
 
+  const data = await response.json()
+  console.log(data)
+
+  if(data.success === false){
+    
+    router.push("/auth/login")
+  }else{
+
+  return data
+  }
+}
+//using useeefect for  this
+useEffect(()=>{
+  getUser()
+},[])
 
   // Add a new todo item when the user clicks the button for POST
   async function handleAddTodo() {
@@ -107,8 +127,12 @@ useEffect(() => {
 
   getTodos();
 
-}, []);
+}, [])
  
+
+    
+
+
 
   return (
     <section className="page-content todo-page">
