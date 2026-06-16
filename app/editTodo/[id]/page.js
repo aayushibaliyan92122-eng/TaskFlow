@@ -57,7 +57,7 @@ async function SaveTodo() {
 
 
 console.log("clicked")
-router.push("/")
+router.push("/todospage")
 
 
 }

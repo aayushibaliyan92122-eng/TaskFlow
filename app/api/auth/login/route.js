@@ -64,7 +64,8 @@ cookieStore.set(
 
 return Response.json(
        { success: true,
-        message: "logged in succesfully"},
+        message: "logged in succesfully",
+      user : user},
        { status:200,}
 
     )

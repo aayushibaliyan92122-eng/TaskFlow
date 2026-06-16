@@ -10,7 +10,7 @@ export async function GET() {
   await prisma.todo.findMany(
     {
       where:{
-        userId:userId
+        userId:userId.id
       }
     }
   )
@@ -50,7 +50,7 @@ export async function
     completed: false,
     user: {
       connect: {
-      id: userId
+      id: userId.id
      }
    }
   }
@@ -77,7 +77,7 @@ export async function DELETE(request) {
   }
 })
 
-if(todo.userId !== userid){
+if(todo.userId !== userid.id){
   return Response.json(
     {success: false, message:"you are not authenticated to do this operation"},
     {status: 401}
@@ -105,7 +105,7 @@ export async function PATCH(request) {
 })
 
 
-if(todo.userId !== userid){
+if(todo.userId !== userid.id){
   return Response.json(
     {success: false , message: "u are npt authenticated to perform this operation"},
     {status:401}
