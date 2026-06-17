@@ -18,11 +18,15 @@ async function getCurrentUser() {
         const userinfo = await prisma.user.findUnique({
             where: { id: userId },
         })
+        if(!userinfo){
+  return null
+}
 
         return userinfo
-    } catch (error) {
-        console.error("getCurrentUser error:", error)
-        return null
-    }
+    } 
+    catch(error){
+  console.error("FULL ERROR:", error)
+  throw error
+}
 }
 export default getCurrentUser

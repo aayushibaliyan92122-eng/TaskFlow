@@ -6,6 +6,7 @@ import { useEffect,useState } from "react";
 import { useRouter } from "next/navigation";
 
 
+
 const login = ()=>{
 
  const [loginData, setloginData] = useState({password: "" , email: ""})
@@ -38,16 +39,20 @@ function loginHandle(event){
     console.log(loginData)
    const res =await response.json()
 
+   // FIX: Only redirect if login was successful, else show error message
    if(res.success===true){
     console.log(res.message)
+    router.push("/")
 }else{
     console.log(res.message)
+    alert("Login failed: " + res.message)
 }
-  
-   router.push("/")
 }
 
-
+async function SignUp() {
+    router.push("/auth/signUp")
+    
+}
 
 
 return(
@@ -61,15 +66,22 @@ value={loginData.email}
 onChange={loginHandle}
 />
 
+
 <input
 name="password"
-type="text"
+type="password"
 placeholder="enter your password"
 value={loginData.password}
 onChange={loginHandle}
 />
 
 <button onClick={loginButton}>login</button>
+
+
+<h5>Don't have an account?</h5>
+<button onClick={SignUp}>
+  Create Account
+</button>
 
 </>
 )

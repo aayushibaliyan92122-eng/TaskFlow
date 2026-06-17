@@ -51,9 +51,10 @@ fetch("/api/routes", {
 }
 
 
-//using useeefect for  this
+// FIX: Call getTodos() on component mount to load initial todos
 useEffect(()=>{
   getUser()
+  getTodos() // Load todos when component mounts
 },[])
 
   // Add a new todo item when the user clicks the button for POST
@@ -87,6 +88,11 @@ useEffect(()=>{
 
     const response =
       await fetch("/api/routes");
+
+      if(!response.ok){
+  router.push("/auth/login")
+  return
+}
 
     const data =
       await response.json();

@@ -36,7 +36,7 @@ const Dashboard = () => {
     } catch (error) {
       console.error('logout error:', error)
     } finally {
-      router.push('/auth/signUp')
+      router.push('/auth/login')
     }
   }
 

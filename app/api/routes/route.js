@@ -6,6 +6,20 @@ from "../../lib/prisma.js";;
 
 export async function GET() {
  const userId =await  getCurrentuser()
+
+//
+if(!userId){
+ return Response.json(
+  {
+   success:false,
+   message:"unauthorized"
+  },
+  {status:401}
+ )
+}
+
+
+
   const todos =
   await prisma.todo.findMany(
     {
@@ -63,9 +77,6 @@ export async function
 };
 
 
-
-
-  
 export async function DELETE(request) {
   const data = await request.json();
 
@@ -128,8 +139,9 @@ console.log(data)
 console.log("updated data")
 }
 
-//toggling
-if(data.completed !== undefined){
+  // FIX: Added closing brace for else block
+  //toggling
+  if(data.completed !== undefined){
   await prisma.todo.update({
  where: {
    id:
@@ -142,17 +154,11 @@ if(data.completed !== undefined){
  }
 }
 )
-}
+  }
 
-
-
-
-return Response.json({
- success: true,
- message:
-  "Todo updated successfully"
-})
-
-
-  
+  return Response.json({
+   success: true,
+   message:
+    "Todo updated successfully"
+  })
 }

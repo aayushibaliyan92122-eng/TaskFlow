@@ -48,14 +48,12 @@ if(!user){
 
  const cookieStore = await cookies()
 
-cookieStore.set(
-      "token", token,
-      {
-         httpOnly : true,
-
-       maxAge :  7 * 24 * 60 * 60
-      }
-   )
+cookieStore.set("token", token, {
+ httpOnly: true,
+ secure: process.env.NODE_ENV === "production",
+ sameSite: "strict",
+ maxAge: 7 * 24 * 60 * 60
+})
    
 
       
@@ -65,7 +63,11 @@ cookieStore.set(
 return Response.json(
        { success: true,
         message: "logged in succesfully",
-      user : user},
+      user :  {
+ id: user.id,
+ name: user.name,
+ email: user.email
+}},
        { status:200,}
 
     )

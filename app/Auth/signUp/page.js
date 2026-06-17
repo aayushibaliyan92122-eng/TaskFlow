@@ -20,11 +20,11 @@ function handleChange(event) {
   })
 }
 
+ // FIX: Check if signup was successful before redirecting
  async function handleRegister(){
  
 
-
-  await fetch(
+  const response = await fetch(
     "/api/auth/signUp",
     {
       method: "POST",
@@ -40,9 +40,14 @@ function handleChange(event) {
     }
   );
 
-
+  const res = await response.json();
   
+  // Only redirect if registration was successful
+  if(res.success) {
      router.push("/auth/login")
+  } else {
+    alert("Registration failed: " + res.message)
+  }
 }
 
 

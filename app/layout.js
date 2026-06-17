@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       <body>
         <header>
           <nav>
-            <Link href="/list">list</Link>
+           
             <Link href="/todospage">todospage</Link>
             <Link href="/dashboard">dashboard</Link>
             <Link href="/status">stats</Link>

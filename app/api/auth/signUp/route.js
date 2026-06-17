@@ -15,28 +15,40 @@ export async function GET() {
 
 }
 
-
-
 export async function POST(request){
 
 const data =
  await request.json()
   console.log(data)
 
- if(!data){
+//  if(!data){
+//     return Response.json({
+//       success: false,
+//       message: " all credentials are required",
+//     }, { status: 400 });
+//  }
+
+if(
+ !data.userData?.name ||
+ !data.userData?.email ||
+ !data.userData?.password
+){
     return Response.json({
       success: false,
       message: " all credentials are required",
     }, { status: 400 });
- }else{
-//hahsing password
+ }
 
-    
+const existemail = await prisma.user.findUnique({where:{email:data.userData.email}})
 
+if(existemail){
+   return Response.json({
+    success: false,
+    message: "userdata with this email already exist",  
+  }, { status: 409 })
+}else{
 
-const hashedPassword = await bcrypt.hash(data.userData.password, 10)
-
-
+  const hashedPassword = await bcrypt.hash(data.userData.password, 10)
   //creating db
     await prisma.user.create({
   data: {

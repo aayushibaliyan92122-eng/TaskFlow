@@ -16,7 +16,8 @@ export async function middleware(request) {
       return redir
     }else{
         
- 
+ console.log("middleware running")
+console.log(token)
        const nex = NextResponse.next()
         return nex
     }

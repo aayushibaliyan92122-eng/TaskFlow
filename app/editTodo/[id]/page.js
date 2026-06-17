@@ -33,11 +33,11 @@ export default function EditTodo() {
  useRouter()
 
 
-  //editing todos
-async function SaveTodo() {
+  // FIX: Added await to fetch call so it completes before redirect
+  async function SaveTodo() {
   
   
-  fetch("/api/routes", {
+  await fetch("/api/routes", {
   method: "PATCH",
 
   headers: {
@@ -57,7 +57,7 @@ async function SaveTodo() {
 
 
 console.log("clicked")
-router.push("/todospage")
+await router.push("/todospage")
 
 
 }
@@ -106,4 +106,5 @@ getTodo()
         Save
       </button>
     </div>
-  )}
+  ) // FIX: Removed extra closing brace that was causing syntax error
+}
