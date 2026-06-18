@@ -1,26 +1,33 @@
 'use client';    
  import { useState } from 'react';
 
- export default function TodoForm({
+
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+export default function TodoForm({
   task,
   setTask,
-  handleAddTask
+  handleAddTask,
+  disabled,
 }) {
-
   return (
-    <div className="todo-form">
-      <input
-        type="text"
-        placeholder="Enter your task here"
+    <div className="flex gap-3 mb-8">
+      <Input
+        placeholder="Enter your task here..."
         value={task}
-        onChange={(event) =>
-          setTask(event.target.value)
+        onChange={(e) =>
+          setTask(e.target.value)
         }
       />
 
-      <button onClick={handleAddTask}>
+      <Button
+        onClick={handleAddTask}
+        disabled={disabled}
+      >
         Add Task
-      </button>
+      </Button>
     </div>
   );
 }

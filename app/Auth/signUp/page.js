@@ -41,6 +41,10 @@ function handleChange(event) {
   );
 
   const res = await response.json();
+//   console.log(response.status);
+
+// const text = await response.text();
+// console.log(text);
   
   // Only redirect if registration was successful
   if(res.success) {

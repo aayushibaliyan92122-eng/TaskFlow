@@ -11,16 +11,17 @@ import {
 } from
 "next/navigation"
 
-
-
 import {
  useParams
 }
 from
 "next/navigation"
  
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
+import { Input } from "@/components/ui/input";
 
+import { Button } from "@/components/ui/button";
 
 export default function EditTodo() {
  const params =  useParams()
@@ -89,22 +90,52 @@ getTodo()
 },[])
 
   return (
-    <div>
-      <h1>Edit Todo</h1>
+ 
+  <div className="min-h-screen bg-black text-white">
+    <div className="container max-w-2xl mx-auto py-12 px-4">
 
-      <input
-        type="text"
-        value={todo}
-        onChange={(event) =>
-          setTodo(
-            event.target.value
-          )
-        }
-      />
+    <Card className="bg-[#111318] border-zinc-800">
+        <CardHeader>
+          <CardTitle className="text-3xl text-white">
+            Edit Todo
+          </CardTitle>
 
-      <button onClick={SaveTodo}>
-        Save
-      </button>
+          <CardDescription className="text-zinc-400">
+            Update your task and save changes.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+
+          <Input
+            value={todo}
+            onChange={(e) =>
+              setTodo(e.target.value)
+            }
+            className="
+              bg-zinc-800
+              border-zinc-700
+              text-white
+              placeholder:text-zinc-500
+            "
+          />
+
+          <Button
+  className="
+    w-full
+    bg-blue-600
+    hover:bg-blue-700
+    text-white
+  "
+>
+  Save Changes
+</Button>
+
+        </CardContent>
+      </Card>
+
     </div>
-  ) // FIX: Removed extra closing brace that was causing syntax error
+  </div>
+)
+
 }
