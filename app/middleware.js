@@ -1,33 +1,20 @@
 
-import { NextResponse } from "next/server"
 
 
-export async function middleware(request) {
-   
-    
+import { NextResponse } from "next/server";
 
-    const  token = await request.cookies.get("token")
-    if(!token){
-      const redir =  NextResponse.redirect(
-        new URL("/auth/login", request.url)
+export function middleware(request) {
+  const token = request.cookies.get("token");
 
-)
+  if (!token) {
+    return NextResponse.redirect(
+      new URL("/auth/login", request.url)
+    );
+  }
 
-      return redir
-    }else{
-        
- console.log("middleware running")
-console.log(token)
-       const nex = NextResponse.next()
-        return nex
-    }
-   
-  
+  return NextResponse.next();
 }
 
-
-
-
-    export  const config = {
-  matcher: ["/dashboard", "/todospage"]
-}
+export const config = {
+  matcher: ["/dashboard", "/todospage"],
+};

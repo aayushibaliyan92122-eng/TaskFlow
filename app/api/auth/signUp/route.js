@@ -19,14 +19,8 @@ export async function POST(request){
 
 const data =
  await request.json()
-  console.log(data)
+  
 
-//  if(!data){
-//     return Response.json({
-//       success: false,
-//       message: " all credentials are required",
-//     }, { status: 400 });
-//  }
 
 if(
  !data.userData?.name ||
