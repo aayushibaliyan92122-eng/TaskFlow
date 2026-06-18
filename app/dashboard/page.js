@@ -1,5 +1,25 @@
 "use client"
 
+import Link from "next/link";
+import {
+  LayoutDashboard,
+  CheckCircle2,
+  Clock3,
+  ListTodo,
+  LogOut,
+} from "lucide-react";
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import { Button } from "@/components/ui/button";
+
+
+
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
@@ -84,67 +104,121 @@ const pendingTodos = todos.filter(
 
           /////stupifity
           return (
-            <div className="min-h-screen bg-black text-white px-4 py-8 sm:px-6 lg:px-8">
-              <div className="max-w-5xl mx-auto space-y-8">
 
-                <div className="space-y-4">
-                  <h1 className="text-4xl font-bold sm:text-5xl">
-                    Welcome back, {user?.name || 'Loading...'} 👋
-                  </h1>
+            <>
+        <div className="space-y-2">
+  <div className="flex items-center gap-2">
+    <LayoutDashboard className="h-6 w-6 text-blue-500" />
 
-                  <p className="text-zinc-400 text-base sm:text-lg">
-                    Manage your tasks efficiently.
-                  </p>
+    <h1 className="text-4xl font-bold">
+      Welcome back, {user?.name}
+    </h1>
+  </div>
 
-                  <p className="text-zinc-500 text-sm sm:text-base">
-                    <strong>Email:</strong> {user?.email || 'Loading...'}
-                  </p>
-                </div>
+  <p className="text-zinc-400">
+    Manage your tasks efficiently.
+  </p>
 
-                <div className="grid gap-6 mt-6 sm:grid-cols-2 xl:grid-cols-3">
+  <p className="text-sm text-zinc-500">
+    {user?.email}
+  </p>
+</div>
+               
+               <div className="grid gap-6 md:grid-cols-3">
+  <Card className="bg-zinc-900 border-zinc-800">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-zinc-300">
+        <ListTodo className="h-4 w-4" />
+        Total Tasks
+      </CardTitle>
+    </CardHeader>
 
-                  <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-                    <h3 className="text-zinc-400">Total Todos</h3>
-                    <p className="mt-3 text-3xl font-bold sm:text-4xl">{totalTodos}</p>
-                  </div>
+    <CardContent>
+      <p className="text-4xl font-bold">
+        {totalTodos}
+      </p>
+    </CardContent>
+  </Card>
 
-                  <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-                    <h3 className="text-zinc-400">Completed</h3>
-                    <p className="mt-3 text-3xl font-bold sm:text-4xl">{completedTodos}</p>
-                  </div>
+  <Card className="bg-zinc-900 border-zinc-800">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-green-400">
+        <CheckCircle2 className="h-4 w-4" />
+        Completed
+      </CardTitle>
+    </CardHeader>
 
-                  <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-                    <h3 className="text-zinc-400">Pending</h3>
-                    <p className="mt-3 text-3xl font-bold sm:text-4xl">{pendingTodos}</p>
-                  </div>
+    <CardContent>
+      <p className="text-4xl font-bold">
+        {completedTodos}
+      </p>
+    </CardContent>
+  </Card>
 
-                </div>
+  <Card className="bg-zinc-900 border-zinc-800">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-orange-400">
+        <Clock3 className="h-4 w-4" />
+        Pending
+      </CardTitle>
+    </CardHeader>
 
-                <div className="flex flex-col gap-4 mt-6 sm:flex-row sm:items-center">
-                  <a
-                    href="/todospage"
-                    className="inline-flex justify-center rounded-lg bg-white px-6 py-3 text-center text-black font-semibold transition hover:bg-zinc-100"
-                  >
-                    View Todos
-                  </a>
+    <CardContent>
+      <p className="text-4xl font-bold">
+        {pendingTodos}
+      </p>
+    </CardContent>
+  </Card>
+</div>
 
-                  <a
-                    href="/todospage"
-                    className="inline-flex justify-center rounded-lg border border-zinc-700 px-6 py-3 text-center transition hover:border-zinc-500"
-                  >
-                    Create Todo
-                  </a>
-                </div>
 
-                <button
-                  onClick={logoutUser}
-                  className="mt-4 text-red-400 hover:text-red-300"
-                >
-                  Logout
-                </button>
 
-              </div>
-            </div>
+               <div className="flex flex-wrap gap-3">
+
+  <Button asChild size="lg">
+    <Link href="/todospage">
+      View Todos
+    </Link>
+  </Button>
+
+  <Button
+    variant="outline"
+    size="lg"
+    asChild
+  >
+    <Link href="/todospage">
+      Create Todo
+    </Link>
+  </Button>
+
+</div>
+
+
+          <Button
+  variant="destructive"
+  onClick={logoutUser}
+>
+  <LogOut className="h-4 w-4 mr-2" />
+  Logout
+</Button>
+
+
+<Card className="bg-zinc-900 border-zinc-800">
+  <CardHeader>
+    <CardTitle>
+      Activity Overview
+    </CardTitle>
+  </CardHeader>
+
+  <CardContent className="space-y-2 text-zinc-400">
+    <p>📋 Total Tasks: {totalTodos}</p>
+    <p>✅ Completed: {completedTodos}</p>
+    <p>⏳ Pending: {pendingTodos}</p>
+  </CardContent>
+</Card>
+
+
+</>
           )
      
   

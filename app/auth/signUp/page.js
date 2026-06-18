@@ -4,7 +4,9 @@ import React from "react"
 import { useState , useEffect } from "react"
 import { useRouter } from "next/navigation"
 
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 
 const  SignUp=()=>{
@@ -22,7 +24,14 @@ function handleChange(event) {
 
  // FIX: Check if signup was successful before redirecting
  async function handleRegister(){
- 
+ if (
+  !userData.name ||
+  !userData.email ||
+  !userData.password
+) {
+  alert("All fields are required");
+  return;
+}
 
   const response = await fetch(
     "/api/auth/signUp",
@@ -41,12 +50,7 @@ function handleChange(event) {
   );
 
   const res = await response.json();
-//   console.log(response.status);
 
-// const text = await response.text();
-// console.log(text);
-  
-  // Only redirect if registration was successful
   if(res.success) {
      router.push("/auth/login")
   } else {
@@ -58,65 +62,84 @@ function handleChange(event) {
 
 
 
-//GETUSERDATA
-
- {async function getTodos() {
-
-    const response =
-      await fetch("/api/auth/signUp");
-    
-
-    const data =
-      await response.json();
-
-    console.log(data);
-
-
-    setuserData(data);
-    
-  }
-// getTodos()
-}
 
 
 
-    return(
-      <>
-        <p>Please Register Here!</p>
-        <input
+
+    return (
+  <div className="flex min-h-[80vh] items-center justify-center">
+
+    <Card className="w-full max-w-md border-zinc-800 bg-zinc-900">
+
+      <CardHeader className="space-y-2 text-center">
+        <CardTitle className="text-3xl font-bold">
+          Create Account 🚀
+        </CardTitle>
+
+        <p className="text-sm text-zinc-400">
+          Start organizing your tasks today.
+        </p>
+      </CardHeader>
+
+      <CardContent className="space-y-4">
+
+        <Input
           name="name"
           type="text"
-          placeholder="username"
+          placeholder="Full Name"
           value={userData.name}
-          onChange={handleChange
-          }
+          onChange={handleChange}
+          className="bg-zinc-950 border-zinc-700"
         />
-        <input
-        name="email"
-          type="text"
-          placeholder="email"
+
+        <Input
+          name="email"
+          type="email"
+          placeholder="Email Address"
           value={userData.email}
-          onChange={handleChange
-          }
+          onChange={handleChange}
+          className="bg-zinc-950 border-zinc-700"
         />
-        <input
-        name="password"
+
+        <Input
+          name="password"
           type="password"
-          placeholder=" enter your password"
+          placeholder="Create Password"
           value={userData.password}
           onChange={handleChange}
-          
-          
+          className="bg-zinc-950 border-zinc-700"
         />
-        
-        
-        <button onClick={handleRegister}>Register</button>
 
-        
-</>
-       
-        
-    )
-}
+        <Button
+          onClick={handleRegister}
+          className="w-full"
+        >
+          Create Account
+        </Button>
+
+        <div className="border-t border-zinc-800 pt-4 text-center">
+
+          <p className="text-sm text-zinc-400 mb-3">
+            Already have an account?
+          </p>
+
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() =>
+              router.push("/auth/login")
+            }
+          >
+            Login
+          </Button>
+
+        </div>
+
+      </CardContent>
+
+    </Card>
+
+  </div>
+);}
 
 export default SignUp

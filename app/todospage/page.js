@@ -143,7 +143,7 @@ getTodos()
 
   return (
  
-    <section className="max-w-4xl mx-auto px-6 py-10">
+   <section className="max-w-5xl mx-auto space-y-8">
   <TodoHeader />
 
   <TodoForm
@@ -154,15 +154,25 @@ getTodos()
   />
 
   {loading ? (
-    <p className="text-center">
-      Loading todos...
-    </p>
+    <Card className="bg-zinc-900 border-zinc-800">
+  <CardContent className="py-12 text-center text-zinc-400">
+    Loading your tasks...
+  </CardContent>
+</Card>
   ) : todos.length === 0 ? (
-    <Card>
-      <CardContent className="py-10 text-center bg-gray-800">
-        No todos yet. Create your first task 🚀
-      </CardContent>
-    </Card>
+    <Card className="bg-zinc-900 border-zinc-800">
+  <CardContent className="flex flex-col items-center gap-3 py-12">
+    <div className="text-4xl">📝</div>
+
+    <h3 className="text-lg font-semibold">
+      No tasks yet
+    </h3>
+
+    <p className="text-zinc-400">
+      Create your first task and start being productive.
+    </p>
+  </CardContent>
+</Card>
   ) : (
     
     <TodoList

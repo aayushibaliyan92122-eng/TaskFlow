@@ -1,7 +1,5 @@
 'use client'
-import "dotenv/config";
 
-console.log("DATABASE_URL =", process.env.DATABASE_URL);
 
 import React from "react";
 import { useEffect,useState } from "react";
@@ -11,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { CardHeader,CardTitle,CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-const login = ()=>{
+const loginPage = ()=>{
 
  const [loginData, setloginData] = useState({password: "" , email: ""})
  const [loading, setLoading] = useState(false)
@@ -83,85 +81,81 @@ return(
 
 <>
 
-<div className="max-w-5xl mx-auto px-6 py-10">
+return (
+  <div className="flex min-h-[80vh] items-center justify-center">
 
+    <Card className="w-full max-w-md border-zinc-800 bg-zinc-900">
+      
+      <CardHeader className="space-y-2 text-center">
+        <CardTitle className="text-3xl font-bold">
+          Welcome Back 👋
+        </CardTitle>
 
-<Card className="w-400px">
-  <CardHeader>
-    <CardTitle>Login</CardTitle>
-  </CardHeader>
+        <p className="text-sm text-zinc-400">
+          Login to continue managing your tasks
+        </p>
+      </CardHeader>
 
-  <CardContent className="space-y-4">
-    <Input
-      name="email"
-type="text"
-placeholder="enter your email"
-value={loginData.email}
-onChange={loginHandle}
-    />
+      <CardContent className="space-y-4">
 
-    <Input
-     name="password"
-type="password"
-placeholder="enter your password"
-value={loginData.password}
-onChange={loginHandle}
-    />
-<Button
-  className="w-full"
-  onClick={loginButton}
-  disabled={loading}
->
-  {loading ? "Logging in..." : "Login"}
-</Button>
+        <Input
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+          value={loginData.email}
+          onChange={loginHandle}
+          className="bg-zinc-950 border-zinc-700"
+        />
 
+        <Input
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          value={loginData.password}
+          onChange={loginHandle}
+          className="bg-zinc-950 border-zinc-700"
+        />
 
-    {error && <p style={{ color: 'red' }}>{error}</p>}
+        <Button
+          className="w-full"
+          onClick={loginButton}
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </Button>
 
-    <h5>Don't have an account?</h5>
-<button className="w-full" onClick={SignUp}>
-  Create Account
-</button>
-  </CardContent>
-</Card>
+        {error && (
+          <p className="text-sm text-red-500 text-center">
+            {error}
+          </p>
+        )}
 
+        <div className="border-t border-zinc-800 pt-4 text-center">
 
-</div>
+          <p className="text-sm text-zinc-400 mb-3">
+            Don't have an account?
+          </p>
+
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={SignUp}
+          >
+            Create Account
+          </Button>
+
+        </div>
+
+      </CardContent>
+    </Card>
+
+  </div>
+)
 </>
 )
 }
 
 
-export default login
+export default loginPage
 
 
-{/* <>
-<h1>Login Page</h1>
-<input 
-name="email"
-type="text"
-placeholder="enter your email"
-value={loginData.email}
-onChange={loginHandle}
-/>
-
-
-<input
-name="password"
-type="password"
-placeholder="enter your password"
-value={loginData.password}
-onChange={loginHandle}
-/>
-
-<button onClick={loginButton} disabled={loading}>
-  {loading ? "Logging in..." : "Login"}
-</button>
-{error && <p style={{ color: 'red' }}>{error}</p>}
-
-<h5>Don't have an account?</h5>
-<button onClick={SignUp}>
-  Create Account
-</button>
-
-</> */}
